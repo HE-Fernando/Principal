@@ -1,0 +1,31 @@
+body 
+{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: gainsboro;
+    margin: 0;
+    padding : 0;
+    font-size: 1.5em;
+}
+
+h1 
+{
+    color:green;
+    text-align: center;
+    font-size: 72px;
+    background-color: aqua;
+}
+
+p{
+    font-size: 48px;
+    line-height: 1.5;
+    text-align: center;
+
+}
+input
+{
+    font-size: 48px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
