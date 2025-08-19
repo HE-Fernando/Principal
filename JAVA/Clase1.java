@@ -35,32 +35,38 @@ public class Clase1 {
         System.out.flush();
         System.out.println("Curso: " + getNombreDelCurso());
         System.out.println("Profesor: " + getNombreProfesor() + "\n\n");
-        System.out.println("Ingrese la nota numero " + (contador + 1) + "\nPara salir presione '999'");
-        aux = entrada.nextInt();
-        while (aux < 0 || aux >10) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            System.out.println("¡El valor ingresado es incorrecto!");
-            System.out.println("Por favor reingrese la nota: ");
-            aux = entrada.nextInt();
-        }
-        while (aux != 999) {
-            sumador = sumador + aux;
+        System.out.println("¿Desea ingresar nota?");
+        System.out.println("1: Si     |     0:No");
+        int auxMenu = entrada.nextInt();
+        while (auxMenu == 1) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("Curso: " + getNombreDelCurso());
             System.out.println("Profesor: " + getNombreProfesor() + "\n\n");
-            System.out.println("Ingrese la nota numero " + (contador + 1) + "\nPara salir presione '999'");
+            System.out.println("Ingrese la nota numero " + (contador + 1));
             aux = entrada.nextInt();
-            while (aux < 0 || aux >10) { //ARREGLAR CONDICION PARA QUE SE PUEDA SALIR INGRESANDO 999 
+            while (aux < 0 || aux >10) {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 System.out.println("¡El valor ingresado es incorrecto!");
                 System.out.println("Por favor reingrese la nota: ");
                 aux = entrada.nextInt();
             }
+            sumador = sumador + aux;
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             contador = contador + 1;
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("Nota cargada correctamente.");
+            System.out.println("Curso: " + getNombreDelCurso());
+            System.out.println("Profesor: " + getNombreProfesor() + "\n\n");
+            System.out.println("¿Desea ingresar nota?");
+            System.out.println("1: Si     |     0:No");
+            auxMenu = entrada.nextInt();
         }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();        
         if (contador == 0) {
             System.out.println("Curso: " + getNombreDelCurso());
             System.out.println("Profesor: " + getNombreProfesor() + "\n\n");
