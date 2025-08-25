@@ -1,16 +1,44 @@
 <?php
 include "b_datos.php";
-//MOSTRAR NUMERO DE ESTUDIANTES
+//CANTIDAD DE ESTUDIANTES
 $numeroEstudiantes = count($estudiantes);
+//CANTIDAD DE ESTUDIANTES
+//TOP ESTUDIANTES
 $topEstudiantes = [];
-$auxPromedio = 8;
+$umbralPromedio = 8; // Definir el umbral de promedio para considerar "top estudiantes"
 foreach ($estudiantes as $id => $estudiante) {
-    if ($estudiante["promedio"] >= $auxPromedio) {
-        $topEstudiantes["nombre"] = $estudiante["nombre"];
-        $topEstudiantes["apellido"] = $estudiante["apellido"];
-        $topEstudiantes["promedio"] = $estudiante["promedio"];
+    if ($estudiante["promedio"] >= $umbralPromedio) {
+        $topEstudiantes[] = [
+            "nombre" => $estudiante["nombre"],
+            "promedio" => $estudiante["promedio"]
+        ];
     }
 }
+//TOP ESTUDIANTES
+//DISTRIBUCION POR CARRERAS
+$carreras = [];
+foreach ($estudiantes as $estudiante) {
+    $nombreCarrera = $estudiante["carrera"];
+    if (isset($carreras[$nombreCarrera])) {
+        $carreras[$nombreCarrera]++;
+    }else {
+        $carreras[$nombreCarrera] = 1;
+    }
+}
+//DISTRIBUCION POR CARRERAS
+//ALERTAS DE RIESGO
+$estudiantesRiesgo = [];
+$umbralRiesgo = 6; // Definir el umbral de promedio para considerar "riesgo"
+foreach ($estudiantes as $id => $estudiante) {
+    if ($estudiante["promedio"] < $umbralRiesgo) {
+        $estudiantesRiesgo [] = [
+            "nombre" => $estudiante["nombre"],
+            "promedio" => $estudiante["promedio"]
+        ];
+    };
+}
+//ALERTAS DE RIESGO
+
 
 
 ?>
@@ -52,9 +80,35 @@ foreach ($estudiantes as $id => $estudiante) {
             <div class="panel">
                 <h3 class="centrado">Top estudiantes</h3>
                 <p class="chico">(estudiantes con promedio mayor a 8) </p class="chico">
+                <?php
+                    usort($topEstudiantes, function($a, $b) {
+                        return $b["promedio"] <=> $a["promedio"];
+                    });
+                    foreach ($topEstudiantes as $id => $estudiante) {
+                        echo "<p class='chicov2'>" . $estudiante["nombre"] . " - Promedio: " . $estudiante["promedio"];
+                    }                
+                ?>
             </div>
-            <div class="panel"> Distribucion por Carreras </div>
-            <div class="panel"> Alertas de Riesgo </div>
+            <div class="panel">
+                <h3 class="centrado">Distribución por carreras</h3>
+                <?php 
+                    foreach ($carreras as $id => $cantidad) {
+                        echo "<p class='chicov2'>" . $id . ": " . $cantidad . " estudiantes</p>";
+                    }
+                ?>
+            </div>
+            <div class="panel">
+                <h3 class="centrado">Estudiantes en riesgo</h3>
+                <p class="chico">(estudiantes con promedio menor a 6) </p class="chico">
+                <?php 
+                    foreach ($estudiantesRiesgo as $id => $estudiante) {
+                        echo "<p class='chicov2'>" . $estudiante["nombre"] . " - Promedio: " . $estudiante["promedio"];
+                    }
+                ?>
+
+
+
+            </div>
         </div>
     </body>
         

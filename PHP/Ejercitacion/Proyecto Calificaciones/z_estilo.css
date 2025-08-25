@@ -66,6 +66,13 @@ p.chico{
     margin: 5px;
     padding: 0px;
 }
+p.chicov2{
+    font-size: 15px;
+    line-height: 1;
+    text-align: center;
+    margin: 5px;
+    padding: 0px;
+}
 
 input
 {
