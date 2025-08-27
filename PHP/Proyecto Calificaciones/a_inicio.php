@@ -1,9 +1,12 @@
 <?php
-include "b_datos.php";
+include "SQL\conexion.php";
 //CANTIDAD DE ESTUDIANTES
-$numeroEstudiantes = count($estudiantes);
+$sql = "SELECT IDestudiante, apellido, nombre, edad, carrera, promedio FROM estudiantes";
+$results = $conn->query($sql);
+$cantidadEstudiantes = $results->num_rows
 //CANTIDAD DE ESTUDIANTES
 //TOP ESTUDIANTES
+/*
 $topEstudiantes = [];
 $umbralPromedio = 8; // Definir el umbral de promedio para considerar "top estudiantes"
 foreach ($estudiantes as $id => $estudiante) {
@@ -13,7 +16,7 @@ foreach ($estudiantes as $id => $estudiante) {
             "promedio" => $estudiante["promedio"]
         ];
     }
-}
+} 
 //TOP ESTUDIANTES
 //DISTRIBUCION POR CARRERAS
 $carreras = [];
@@ -38,7 +41,7 @@ foreach ($estudiantes as $id => $estudiante) {
     };
 }
 //ALERTAS DE RIESGO
-
+*/
 
 
 ?>
@@ -67,43 +70,38 @@ foreach ($estudiantes as $id => $estudiante) {
             Puedes acceder a las siguientes funcionalidades:
         </p>
         <ul>
-                <li><a href="explorar_estudiantes.php">Explorar estudiantes</a></li>
+                <li><a href="estudiantes.php">Estudiantes</a></li>
                 <li><a href="calcular_promedios.php">Calcular promedios</a></li>
                 <li><a href="mejor_promedio.php">Mejor promedio</a></li>
         </ul>
         <div class="dashboard">
             <div class="panel"> 
                 <h3 class="centrado">Cantidad de estudiantes</h3>
-                <p class="centrado"><?php echo $numeroEstudiantes; ?></p class="centrado">
+                <p class="centrado">
+                <?php     
+                echo "$cantidadEstudiantes"
+                ?>
+                </p class="centrado">
                 
             </div>
             <div class="panel">
                 <h3 class="centrado">Top estudiantes</h3>
                 <p class="chico">(estudiantes con promedio mayor a 8) </p class="chico">
                 <?php
-                    usort($topEstudiantes, function($a, $b) {
-                        return $b["promedio"] <=> $a["promedio"];
-                    });
-                    foreach ($topEstudiantes as $id => $estudiante) {
-                        echo "<p class='chicov2'>" . $estudiante["nombre"] . " - Promedio: " . $estudiante["promedio"];
-                    }                
+                                 
                 ?>
             </div>
             <div class="panel">
                 <h3 class="centrado">Distribución por carreras</h3>
                 <?php 
-                    foreach ($carreras as $id => $cantidad) {
-                        echo "<p class='chicov2'>" . $id . ": " . $cantidad . " estudiantes</p>";
-                    }
+                   
                 ?>
             </div>
             <div class="panel">
                 <h3 class="centrado">Estudiantes en riesgo</h3>
                 <p class="chico">(estudiantes con promedio menor a 6) </p class="chico">
                 <?php 
-                    foreach ($estudiantesRiesgo as $id => $estudiante) {
-                        echo "<p class='chicov2'>" . $estudiante["nombre"] . " - Promedio: " . $estudiante["promedio"];
-                    }
+                    
                 ?>
 
 
