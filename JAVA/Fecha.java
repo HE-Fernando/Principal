@@ -11,10 +11,8 @@ public class Fecha {
     private int dia;
     private int año;
 
-    public Fecha() {
-        this.mes = 0;
-        this.dia = 0;
-        this.año = 0;
+    public Fecha(){
+
     }
     public Fecha(int dia, int mes, int año) {
         this.mes = mes;
@@ -43,6 +41,6 @@ public class Fecha {
         System.out.println("La fecha es: " + getDia() + "/" + getMes() + "/" + getAño());
     }
     public String toString() {
-        return "La fecha es: " + getDia() + "/" + getMes() + "/" + getAño();
+        return "La fecha es: " + getFecha() + "/" + getMes() + "/" + getAño();
     }
 }

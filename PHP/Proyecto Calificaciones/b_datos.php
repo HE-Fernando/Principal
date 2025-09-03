@@ -42,7 +42,7 @@ $estudiantes = array (
     ),
     'promedio' => 7.75,
   ),
-  'est004' =>
+  'est004' => 
   array (
     'nombre' => 'Luis Fernández',
     'edad' => 23,

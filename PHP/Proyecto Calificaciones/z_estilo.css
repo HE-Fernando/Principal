@@ -1,4 +1,4 @@
-body 
+/*body 
 {
     font-family: 'Times New Roman', Times, serif;
     background-color: gainsboro;
@@ -102,4 +102,127 @@ input
 }
 .panel:hover {
     transform: scale(1.05);
+}*/
+/* ===== Estilos generales ===== */
+body {
+    font-family: 'Poppins', 'Arial', sans-serif;
+    background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+    color: #333;
 }
+
+/* ===== Encabezados ===== */
+h1 {
+    color: #1e3a8a;
+    text-align: center;
+    font-size: 50px;
+    background: linear-gradient(to right, #60a5fa, #3b82f6);
+    padding: 20px 0;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #1e293b;
+    text-align: center;
+    font-size: 32px;
+    background-color: #e2e8f0;
+    padding: 15px 0;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: fit-content;
+}
+
+h3 {
+    color: #1e40af;
+    font-size: 22px;
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    transition: background 0.3s, transform 0.3s;
+}
+
+h3:hover {
+    background-color: #c7d2fe;
+    transform: translateY(-2px);
+}
+
+h3.centrado {
+    text-align: center;
+    display: block;
+    margin: 10px auto;
+}
+
+/* ===== Párrafos ===== */
+p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 5px 0;
+}
+
+p.centrado {
+    text-align: center;
+}
+
+p.chico {
+    font-size: 12px;
+    color: #64748b;
+}
+
+p.chicov2 {
+    font-size: 15px;
+    color: #475569;
+}
+
+/* ===== Inputs y Formularios ===== */
+input, select, textarea {
+    font-size: 18px;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(59,130,246,0.5);
+}
+
+/* ===== Dashboard y Paneles ===== */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin: 30px;
+}
+
+.panel {
+    background: #ffffff;
+    padding: 35px 25px;
+    text-align: center;
+    font-size: 22px;
+    border-radius: 15px;
+    flex: 1 1 45%;
+    max-width: 45%;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.panel:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    background: #f0f9ff;
+}
+
+/* ===== Botones ===== */
+button {
+    font-size: 18px;
+    padding: 10px 20px;

@@ -1,48 +1,58 @@
 <?php
 include "SQL\conexion.php";
+
 //CANTIDAD DE ESTUDIANTES
 $sql = "SELECT IDestudiante, apellido, nombre, edad, carrera, promedio FROM estudiantes";
 $results = $conn->query($sql);
-$cantidadEstudiantes = $results->num_rows
+$cantidadEstudiantes = $results->num_rows;
 //CANTIDAD DE ESTUDIANTES
-//TOP ESTUDIANTES
-/*
-$topEstudiantes = [];
-$umbralPromedio = 8; // Definir el umbral de promedio para considerar "top estudiantes"
-foreach ($estudiantes as $id => $estudiante) {
-    if ($estudiante["promedio"] >= $umbralPromedio) {
-        $topEstudiantes[] = [
-            "nombre" => $estudiante["nombre"],
-            "promedio" => $estudiante["promedio"]
-        ];
-    }
-} 
-//TOP ESTUDIANTES
-//DISTRIBUCION POR CARRERAS
-$carreras = [];
-foreach ($estudiantes as $estudiante) {
-    $nombreCarrera = $estudiante["carrera"];
-    if (isset($carreras[$nombreCarrera])) {
-        $carreras[$nombreCarrera]++;
-    }else {
-        $carreras[$nombreCarrera] = 1;
-    }
-}
-//DISTRIBUCION POR CARRERAS
-//ALERTAS DE RIESGO
-$estudiantesRiesgo = [];
-$umbralRiesgo = 6; // Definir el umbral de promedio para considerar "riesgo"
-foreach ($estudiantes as $id => $estudiante) {
-    if ($estudiante["promedio"] < $umbralRiesgo) {
-        $estudiantesRiesgo [] = [
-            "nombre" => $estudiante["nombre"],
-            "promedio" => $estudiante["promedio"]
-        ];
-    };
-}
-//ALERTAS DE RIESGO
-*/
 
+//TOP ESTUDIANTES
+$topEstudiantes;
+if($results->num_rows > 0){
+    while($row = $results->fetch_assoc()){
+        if($row["promedio"] >= 8){
+            $topEstudiantes[] = $row;
+        }
+    }
+    usort($topEstudiantes, function($a, $b){
+        return $b["promedio"] <=> $a["promedio"];
+    });
+}
+//TOP ESTUDIANTES
+
+//DISTRIBUCION POR CARRERAS
+$sql2 = "SELECT carrera FROM estudiantes";
+$results2 = $conn->query($sql2);
+$contadorCarreras = [];
+if($results2->num_rows > 0){
+    while($row = $results2->fetch_assoc()){
+        $carrera = $row['carrera'];
+        if(isset($contadorCarreras[$carrera])){
+            $contadorCarreras[$carrera]++;
+        }else{
+            $contadorCarreras[$carrera] = 1;
+        }
+    }
+}
+//DISTRIBUCION POR CARRERAS
+
+//ALERTAS DE RIESGO
+$sql3 = "SELECT IDestudiante, apellido, nombre, edad, carrera, promedio FROM estudiantes";
+$results3 = $conn->query($sql3);
+$estudiantesRiesgo = [];
+if($results3->num_rows > 0){
+    while($row = $results3->fetch_assoc()){
+        if($row["promedio"] < 6){
+            $estudiantesRiesgo[] = $row;
+        }
+        usort($estudiantesRiesgo, function($a, $b){
+            return $a["promedio"] <=> $b["promedio"];
+        });
+    }
+}
+
+//ALERTAS DE RIESGO
 
 ?>
 <html>
@@ -87,25 +97,50 @@ foreach ($estudiantes as $id => $estudiante) {
             <div class="panel">
                 <h3 class="centrado">Top estudiantes</h3>
                 <p class="chico">(estudiantes con promedio mayor a 8) </p class="chico">
+                <p class="chico">
                 <?php
-                                 
+                    foreach($topEstudiantes as $id => $estudiante){
+                        $promedio = $estudiante["promedio"];
+                        $maxPromedio = 6;
+                        $intensidadRojo = 255 - round(($promedio / $maxPromedio) * 255);
+                        $color = "rgb(255, $intensidadRojo, $intensidadRojo)";
+                        echo "Apellido: " . $estudiante["apellido"] . "<br>";
+                        echo "Nombre: " . $estudiante["nombre"] . "<br>";
+                        echo "Edad: " . $estudiante["edad"] . "<br>";
+                        echo "Carrera: " . $estudiante["carrera"] . "<br>";
+                        echo "Promedio: <b>" . $estudiante["promedio"] . "</b><br>";
+                        echo "ID: " . $estudiante["IDestudiante"] . "<br>";
+                        echo "---------------------------------------<br>";
+                    }     
                 ?>
+                </p class>
             </div>
             <div class="panel">
-                <h3 class="centrado">Distribución por carreras</h3>
-                <?php 
-                   
+                <h3 class="centrado">Distribución de alumnos por carreras</h3>
+                <p class="chico">
+                <?php
+                    foreach($contadorCarreras as $carrera => $cantidad){
+                        echo "$carrera -- $cantidad<br>"; 
+                    }
                 ?>
+                </p>
             </div>
             <div class="panel">
                 <h3 class="centrado">Estudiantes en riesgo</h3>
-                <p class="chico">(estudiantes con promedio menor a 6) </p class="chico">
+                <p class="chico">(estudiantes con promedio menor a 6) </p>
+                <p class="chico">
                 <?php 
-                    
+                    foreach($estudiantesRiesgo as $id => $estudiante){
+                        echo "Apellido: " . $estudiante["apellido"] . "<br>";
+                        echo "Nombre: " . $estudiante["nombre"] . "<br>";
+                        echo "Edad: " . $estudiante["edad"] . "<br>";
+                        echo "Carrera: " . $estudiante["carrera"] . "<br>";
+                        echo "Promedio: <b>" . $estudiante["promedio"] . "</b><br>";
+                        echo "ID: " . $estudiante["IDestudiante"] . "<br>";
+                        echo "---------------------------------------<br>";
+                    }  
                 ?>
-
-
-
+                </p>
             </div>
         </div>
     </body>

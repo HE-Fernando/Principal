@@ -37,9 +37,10 @@
     </h2>
     <?php 
         if(isset($mensaje)) {
-            echo "<p class='chico'> $mensaje </p>";
+            echo "<p class='centrado'> $mensaje </p>";
         }
     ?>
+    <div style="margin-left: 10px;">
     <form action="" method="POST">
         <label for="apellido">Apellido:</label><br>
         <input type="text" name="apellido" required><br><br>
@@ -51,7 +52,14 @@
         <input type="number" name="edad" required><br><br>
 
         <label for="carrera">Carrera:</label><br>
-        <input type="text" name="carrera" required><br><br>
+        <select name="carrera" required>
+            <option value="">--Selecciona una carrera--</option>
+            <option value="Analista de Sistemas">Analista de Sistemas</option>
+            <option value="Recursos Humanos">Recursos Humanos</option>
+            <option value="Administración de Empresas">Administración de Empresas</option>
+            <option value="Régimen Aduanero">Régimen Aduanero</option>
+            <option value="Turismo y Hotelería">Turismo y Hotelería</option>
+        </select><br><br>
 
         <label for="promedio">Promedio:</label><br>
         <input type="number" step="0.01" name="promedio" required><br><br>
@@ -61,5 +69,6 @@
     <p>
             <a href="\Principal\PHP\Proyecto Calificaciones\a_inicio.php">Volver al inicio</a>
     </p>
+    </div>
 </body>
 </html>

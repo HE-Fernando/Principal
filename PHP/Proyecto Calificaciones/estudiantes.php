@@ -19,6 +19,7 @@
         Estudiantes registrados en el sistema:
     </h2>
     <body>
+        <div style="margin-left: 10px;">
         <p class="chico" 
         style="text-align: left;">
         <?php
@@ -45,8 +46,12 @@
             <a href="\Principal\PHP\Proyecto Calificaciones\SQL\insertar.php">Agregar estudiante</a>
         </p>
         <p>
+            <a href="\Principal\PHP\Proyecto Calificaciones\SQL\eliminar.php">Eliminar estudiante</a>
+        </p>
+        <p>
             <a href="a_inicio.php">Volver al inicio</a>
         </p>
+        </div>
 
     </body>
     
