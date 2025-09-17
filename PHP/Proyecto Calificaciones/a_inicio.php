@@ -80,9 +80,8 @@ if($results3->num_rows > 0){
             Puedes acceder a las siguientes funcionalidades:
         </p>
         <ul>
-                <li><a href="estudiantes.php">Estudiantes</a></li>
-                <li><a href="calcular_promedios.php">Calcular promedios</a></li>
-                <li><a href="mejor_promedio.php">Mejor promedio</a></li>
+                <li><a href="estudiantes.php">Administrar Estudiantes</a></li>
+                <li><a href="notas.php">Administrar Notas</a></li>
         </ul>
         <div class="dashboard">
             <div class="panel"> 

@@ -226,3 +226,30 @@ input:focus, select:focus, textarea:focus {
 button {
     font-size: 18px;
     padding: 10px 20px;
+}
+
+/* ===== Tablas ===== */
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    font-family: Arial, sans-serif;
+}
+/* ===== Encabezados y Datos ===== */
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+}
+/* ===== Encabezados ===== */
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+/* ===== Altera color de fondo de las filas pares ===== */
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+
