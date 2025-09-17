@@ -222,6 +222,19 @@ input:focus, select:focus, textarea:focus {
     background: #f0f9ff;
 }
 
+.user-tab{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: default;
+    font-weight: bold;
+    z-index: 1000;
+}
 /* ===== Botones ===== */
 button {
     font-size: 18px;

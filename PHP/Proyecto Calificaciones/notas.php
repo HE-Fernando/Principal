@@ -8,6 +8,11 @@
         ORDER BY notas.fecha DESC";
 
         $result = $conn->query($sql);
+        session_start();
+        if (!isset($_SESSION["usuario"])){
+            header("Location: login.php");
+        exit();
+        }
     ?>
 
     <head>
@@ -17,6 +22,9 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="z_estilo.css">
     </head>
+    <div class="user-tab">
+        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+    </div>
     <div style="margin-left: 10px;">
         <h2>Listado de Notas Registradas</h2>
 

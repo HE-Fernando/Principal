@@ -1,6 +1,11 @@
 <html>
     <?php 
         include 'C:\appserver\htdocs\Principal\PHP\Proyecto Calificaciones\SQL\conexion.php';
+        session_start();
+        if (!isset($_SESSION["usuario"])){
+            header("Location: login.php");
+        exit();
+        }
     ?>
 
 <head>
@@ -10,6 +15,9 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="z_estilo.css">
     </head>
+    <div class="user-tab">
+        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+    </div>
     <h1>
         <strong>
             Estudiantes

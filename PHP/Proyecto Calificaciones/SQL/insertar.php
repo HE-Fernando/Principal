@@ -1,11 +1,10 @@
 <?php
-//IDestudiante (AUTOINDICE)
-//apellido
-//nombre
-//edad
-//carrera
-//promedio
-    include 'conexion.php';
+include 'conexion.php';
+session_start();
+if (!isset($_SESSION["usuario"])){
+    header("Location: /Principal/PHP/Proyecto Calificaciones/login.php");
+    exit();
+}
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $apellido = $_POST["apellido"];
         $nombre = $_POST["nombre"];
@@ -32,6 +31,9 @@
     <link rel="stylesheet" href="\Principal\PHP\Proyecto Calificaciones\z_estilo.css">
 </head>
 <body>
+    <div class="user-tab">
+        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+    </div>
     <h2>
         Formulario de Registro de Estudiantes
     </h2>

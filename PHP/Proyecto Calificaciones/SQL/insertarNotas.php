@@ -1,5 +1,10 @@
 <?php
     include 'conexion.php';
+    session_start();
+    if (!isset($_SESSION["usuario"])){
+        header("Location: /Principal/PHP/Proyecto Calificaciones/login.php");
+        exit();
+    }
 
     $consultaEstudiantes = "SELECT IDestudiante, nombre, apellido FROM estudiantes ORDER BY apellido, nombre";
     $resultEstudiantes = $conn->query($consultaEstudiantes);
@@ -29,6 +34,9 @@
     <link rel="stylesheet" href="\Principal\PHP\Proyecto Calificaciones\z_estilo.css">
 </head>
 <body>
+    <div class="user-tab">
+        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+    </div>
     <h2>
         Formulario de Registro de Notas
     </h2>

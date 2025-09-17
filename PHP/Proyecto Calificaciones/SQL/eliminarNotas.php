@@ -1,5 +1,10 @@
 <?php
 include "conexion.php";
+session_start();
+if (!isset($_SESSION["usuario"])){
+    header("Location: /Principal/PHP/Proyecto Calificaciones/login.php");
+    exit();
+}
 
 $consultaEstudiantes = "SELECT IDestudiante, nombre, apellido FROM estudiantes ORDER BY apellido, nombre";
 $resultEstudiantes = $conn->query($consultaEstudiantes);
@@ -38,10 +43,13 @@ if(isset($_POST["notaID"])){
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Nota</title>
-    <link rel="stylesheet" href="z_estilo.css">
+    <link rel="stylesheet" href="\Principal\PHP\Proyecto Calificaciones\z_estilo.css">
 </head>
 <div style="margin-left: 10px;">
     <body>
+        <div class="user-tab">
+            <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+        </div>
         <h2>Eliminar Nota</h2>
 
         <?php if($mensaje){
@@ -82,6 +90,10 @@ if(isset($_POST["notaID"])){
         <?php elseif(isset($estudianteID)): ?>
             <p>Este estudiante no tiene notas</p>
         <?php endif; ?>
+        <p>
+            <a href="\Principal\PHP\Proyecto Calificaciones\a_inicio.php">Volver al inicio</a><br>
+            <a href="\Principal\PHP\Proyecto Calificaciones\notas.php">Volver al Administrador de Notas</a>
+        </p>
     </body>
 </div>
 </html>

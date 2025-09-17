@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["usuario"])){
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 
@@ -71,6 +71,9 @@ if($results3->num_rows > 0){
         <link rel="stylesheet" href="z_estilo.css">
     </head>
     <body>
+        <div class="user-tab">
+            <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+        </div>
         <h1>
             <strong>
                 Sistema de Calificaciones
@@ -88,6 +91,7 @@ if($results3->num_rows > 0){
         <ul>
                 <li><a href="estudiantes.php">Administrar Estudiantes</a></li>
                 <li><a href="notas.php">Administrar Notas</a></li>
+                <li><a href="cierre.php">Cerrar Sesiones Activas</a></li>
         </ul>
         <div class="dashboard">
             <div class="panel"> 
