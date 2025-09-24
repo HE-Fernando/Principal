@@ -30,25 +30,38 @@
         <div style="margin-left: 10px;">
         <p class="chico" 
         style="text-align: left;">
-        <?php
-        
-            $sql = "SELECT IDestudiante, apellido, nombre, edad, carrera, promedio FROM estudiantes";
-            $results = $conn->query($sql);
-            if ($results->num_rows > 0) {
-                while ($row = $results->fetch_assoc()) {
-                    echo "ID: " . $row["IDestudiante"] . "<br>";
-                    echo "Apellido: " . $row["apellido"] . "<br>";
-                    echo "Nombre: " . $row["nombre"] . "<br>";
-                    echo "Edad: " . $row["edad"] . "<br>";
-                    echo "Carrera: " . $row["carrera"] . "<br>";
-                    echo "Promedio: " . $row["promedio"] . "<br>";
-                    echo "--------------------------------------- <br>";
-                }
-            } else {
-                echo "Sin resultados";
-            }
-        
-        ?>
+<?php
+$sql = "SELECT IDestudiante, apellido, nombre, edad, carrera, promedio FROM estudiantes";
+$results = $conn->query($sql);
+
+echo "<table border='1' cellpadding='5' cellspacing='0'>";
+echo "<tr>
+        <th>ID</th>
+        <th>Apellido</th>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Carrera</th>
+        <th>Promedio</th>
+      </tr>";
+
+if ($results->num_rows > 0) {
+    while ($row = $results->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row["IDestudiante"] . "</td>";
+        echo "<td>" . $row["apellido"] . "</td>";
+        echo "<td>" . $row["nombre"] . "</td>";
+        echo "<td>" . $row["edad"] . "</td>";
+        echo "<td>" . $row["carrera"] . "</td>";
+        echo "<td>" . $row["promedio"] . "</td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='6'>Sin resultados</td></tr>";
+}
+
+echo "</table>";
+?>
+
         </p class="chico">
         <p>
             <a href="\Principal\PHP\Proyecto Calificaciones\SQL\insertar.php">Agregar estudiante</a>
