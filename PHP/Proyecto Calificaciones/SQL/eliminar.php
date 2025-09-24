@@ -2,9 +2,9 @@
 
     include 'conexion.php';
     session_start();
-    if (!isset($_SESSION["usuario"])){
-        header("Location: /Principal/PHP/Proyecto Calificaciones/login.php");
-    exit();
+    if (!isset($_SESSION["usuario"]) || $_SESSION["nivel"] != 1){
+        header("Location: /Principal/PHP/Proyecto Calificaciones/login.php?error=permisos");
+        exit();
     }
     $mensaje = "";
     $estudiante = null;
@@ -41,8 +41,9 @@
 </head>
 <body>
     <div class="user-tab">
-        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
-    </div>
+            <?php echo htmlspecialchars($_SESSION["usuario"]);?> <br>
+            <a href='cierre.php'>Cerrar Sesion</a>
+        </div>
     <h2>
         Eliminar Estudiante
     </h2>

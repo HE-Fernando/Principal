@@ -1,8 +1,8 @@
 <?php
 include 'conexion.php';
 session_start();
-if (!isset($_SESSION["usuario"])){
-    header("Location: /Principal/PHP/Proyecto Calificaciones/login.php");
+if (!isset($_SESSION["usuario"]) || $_SESSION["nivel"] != 1){
+    header("Location: /Principal/PHP/Proyecto Calificaciones/login.php?error=permisos");
     exit();
 }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,8 +32,9 @@ if (!isset($_SESSION["usuario"])){
 </head>
 <body>
     <div class="user-tab">
-        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
-    </div>
+            <?php echo htmlspecialchars($_SESSION["usuario"]);?> <br>
+            <a href='cierre.php'>Cerrar Sesion</a>
+        </div>
     <h2>
         Formulario de Registro de Estudiantes
     </h2>

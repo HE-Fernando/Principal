@@ -16,8 +16,9 @@
         <link rel="stylesheet" href="z_estilo.css">
     </head>
     <div class="user-tab">
-        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
-    </div>
+            <?php echo htmlspecialchars($_SESSION["usuario"]);?> <br>
+            <a href='cierre.php'>Cerrar Sesion</a>
+        </div>
     <h1>
         <strong>
             Estudiantes
@@ -63,12 +64,16 @@ echo "</table>";
 ?>
 
         </p class="chico">
-        <p>
-            <a href="\Principal\PHP\Proyecto Calificaciones\SQL\insertar.php">Agregar estudiante</a>
-        </p>
-        <p>
-            <a href="\Principal\PHP\Proyecto Calificaciones\SQL\eliminar.php">Eliminar estudiante</a>
-        </p>
+        <?php
+            if($_SESSION["nivel"] == 1){
+                echo "<p>
+                   <p><a href='/Principal/PHP/Proyecto Calificaciones/SQL/insertar.php'>Agregar estudiante</a></p>
+                </p>
+                <p>
+                     <p><a href='/Principal/PHP/Proyecto Calificaciones/SQL/eliminar.php'>Eliminar estudiante</a></p>
+                </p>";
+            }
+        ?>
         <p>
             <a href="a_inicio.php">Volver al inicio</a>
         </p>

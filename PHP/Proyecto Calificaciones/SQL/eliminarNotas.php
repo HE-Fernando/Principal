@@ -1,8 +1,8 @@
 <?php
 include "conexion.php";
 session_start();
-if (!isset($_SESSION["usuario"])){
-    header("Location: /Principal/PHP/Proyecto Calificaciones/login.php");
+if (!isset($_SESSION["usuario"]) || $_SESSION["nivel"] != 1){
+    header("Location: /Principal/PHP/Proyecto Calificaciones/login.php?error=permisos");
     exit();
 }
 
@@ -48,7 +48,8 @@ if(isset($_POST["notaID"])){
 <div style="margin-left: 10px;">
     <body>
         <div class="user-tab">
-            <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+            <?php echo htmlspecialchars($_SESSION["usuario"]);?> <br>
+            <a href='cierre.php'>Cerrar Sesion</a>
         </div>
         <h2>Eliminar Nota</h2>
 
@@ -92,7 +93,6 @@ if(isset($_POST["notaID"])){
         <?php endif; ?>
         <p>
             <a href="\Principal\PHP\Proyecto Calificaciones\a_inicio.php">Volver al inicio</a><br>
-            <a href="\Principal\PHP\Proyecto Calificaciones\notas.php">Volver al Administrador de Notas</a>
         </p>
     </body>
 </div>

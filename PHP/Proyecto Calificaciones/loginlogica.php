@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $row = $result->fetch_assoc();
         if ($password === $row["password"]){
             $_SESSION["usuario"] = $row["usuario"];
+            $_SESSION["nivel"] = $row["nivel"];
             header("Location: a_inicio.php");
         }else{
             header("Location: login.php?error=contraseña");

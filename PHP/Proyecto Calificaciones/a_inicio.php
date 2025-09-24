@@ -1,6 +1,4 @@
 <?php
-//PRUEBA DE GIT GRAPH
-//PRUEBA GIT GRAPH RAMA LOG IN
 session_start();
 if (!isset($_SESSION["usuario"])){
     header("Location: login.php");
@@ -74,7 +72,8 @@ if($results3->num_rows > 0){
     </head>
     <body>
         <div class="user-tab">
-            <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+            <?php echo htmlspecialchars($_SESSION["usuario"]);?> <br>
+            <a href='cierre.php'>Cerrar Sesion</a>
         </div>
         <h1>
             <strong>
@@ -85,15 +84,18 @@ if($results3->num_rows > 0){
             Bienvenido al sistema de calificaciones
         </h2>
         <p>
-            Este sistema te permite gestionar las calificaciones de los estudiantes de manera eficiente.
-        </p>
-        <p>
             Puedes acceder a las siguientes funcionalidades:
         </p>
         <ul>
-                <li><a href="estudiantes.php">Administrar Estudiantes</a></li>
-                <li><a href="notas.php">Administrar Notas</a></li>
-                <li><a href="cierre.php">Cerrar Sesiones Activas</a></li>
+            <?php
+                if($_SESSION["nivel"] == 0){
+                    echo "<li><a href='estudiantes.php'>Ver estudiantes</a></li>";
+                    echo "<li><a href='notas.php'>Ver Notas</a></li>";
+                }elseif($_SESSION["nivel"] == 1){
+                    echo "<li><a href='estudiantes.php'>Administrar Estudiantes</a></li>";
+                    echo "<li><a href='notas.php'>Administrar Notas</a></li>";
+                }         
+            ?>
         </ul>
         <div class="dashboard">
             <div class="panel"> 
@@ -113,14 +115,14 @@ if($results3->num_rows > 0){
                     foreach($topEstudiantes as $id => $estudiante){
                         $promedio = $estudiante["promedio"];
                         $maxPromedio = 6;
-                        $intensidadRojo = 255 - round(($promedio / $maxPromedio) * 255);
-                        $color = "rgb(255, $intensidadRojo, $intensidadRojo)";
                         echo "Apellido: " . $estudiante["apellido"] . "<br>";
                         echo "Nombre: " . $estudiante["nombre"] . "<br>";
                         echo "Edad: " . $estudiante["edad"] . "<br>";
                         echo "Carrera: " . $estudiante["carrera"] . "<br>";
                         echo "Promedio: <b>" . $estudiante["promedio"] . "</b><br>";
-                        echo "ID: " . $estudiante["IDestudiante"] . "<br>";
+                        if($_SESSION["nivel"] == 1){
+                            echo "ID: " . $estudiante["IDestudiante"] . "<br>";
+                        }
                         echo "---------------------------------------<br>";
                     }     
                 ?>
@@ -147,7 +149,9 @@ if($results3->num_rows > 0){
                         echo "Edad: " . $estudiante["edad"] . "<br>";
                         echo "Carrera: " . $estudiante["carrera"] . "<br>";
                         echo "Promedio: <b>" . $estudiante["promedio"] . "</b><br>";
-                        echo "ID: " . $estudiante["IDestudiante"] . "<br>";
+                        if($_SESSION["nivel"] == 1){
+                            echo "ID: " . $estudiante["IDestudiante"] . "<br>";
+                        }
                         echo "---------------------------------------<br>";
                     }  
                 ?>
@@ -155,12 +159,4 @@ if($results3->num_rows > 0){
             </div>
         </div>
     </body>
-        
 </html>
-
-<?php
-//IMPLEMENTAR: Estadisticas generales del sistema (cantidad de alumnos, promedio general, etc.).
-//IMPLEMENTAR: Top estudiantes con mejores promedios.
-//IMPLEMENTAR: Distribucion por carreras.
-//IMPLEMENTAR: Alertas de estudiantes en riesgo (promedio bajo).
-?>

@@ -66,6 +66,8 @@
                     echo '<p style="color:red; text-align:center;">Usuario no encontrado</p>';
                 }elseif ($_GET["error"] === "contraseña"){
                     echo '<p style="color:red; text-align:center;">Contraseña incorrecta</p>';
+                }elseif ($_GET["error"] === "permisos"){
+                    echo '<p style="color:red; text-align:center;">Permisos insuficientes</p>';
                 }
             }
             ?>

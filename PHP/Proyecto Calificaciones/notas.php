@@ -23,8 +23,9 @@
         <link rel="stylesheet" href="z_estilo.css">
     </head>
     <div class="user-tab">
-        <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
-    </div>
+            <?php echo htmlspecialchars($_SESSION["usuario"]);?> <br>
+            <a href='cierre.php'>Cerrar Sesion</a>
+        </div>
     <div style="margin-left: 10px;">
         <h2>Listado de Notas Registradas</h2>
 
@@ -53,8 +54,16 @@
             ?>
         </table>
         <p>
-            <a href="\Principal\PHP\Proyecto Calificaciones\SQL\insertarNotas.php">Agregar Nota</a><br>
-            <a href="\Principal\PHP\Proyecto Calificaciones\SQL\eliminarNotas.php">Eliminar Nota</a><br>
+            <?php
+                if($_SESSION["nivel"] == 1){
+                    echo "<p>
+                    <a href='/Principal/PHP/Proyecto Calificaciones/SQL/insertarNotas.php'>Agregar Nota
+                    </p>
+                    <p>
+                        <a href='/Principal/PHP/Proyecto Calificaciones/SQL/eliminarNotas.php'>Eliminar Nota</a>
+                    </p>";    
+                }
+            ?>
             <a href="a_inicio.php">Volver al inicio</a>
         </p>
     </div>
