@@ -214,6 +214,7 @@
                 `;
                 cuerpoTabla.appendChild(fila);
             });
+            actualizarEstadisticas(productos);
             // TODO: Implementar
             // 1. Obtener el tbody con id "cuerpoTabla"
             // 2. Limpiar su contenido
@@ -258,8 +259,6 @@
             productosFiltrados.innerText = contadorFiltrados.toLocaleString();
             valorTotal.innerText = contadorValorTotal.toLocaleString();
         }
-        actualizarEstadisticas(productosOriginales); //CON TODOS LOS PRODUCTOS ORIGINALES
-        //actualizarEstadisticas(productosVacio); //CON UN ARREGLO VACIO PARA PROBAR
 
         // FUNCIÓN 3: Aplicar filtros
         function aplicarFiltros() {
@@ -268,8 +267,19 @@
             // 2. Usar filter() sobre productosOriginales
             // 3. Guardar en productosFiltrados
             // 4. Llamar a ordenarProductos()
-            
-            console.log("TODO: aplicarFiltros()");
+            const textoBusqueda = document.getElementById("buscar").value.toLowerCase();
+            const categoria = document.getElementById("categoria").value;
+            const stockMinimo = parseInt(document.getElementById("stockMinimo").value) || 0;
+
+            productosFiltrados = productosOriginales.filter(p =>{
+                const coincideNombre = p.nombre.toLowerCase().includes(textoBusqueda);
+                const coincideCategoria = categoria === "todas" || p.categoria === categoria;
+                const coincideStock = p.stock >= stockMinimo;
+                return coincideNombre && coincideCategoria && coincideStock;
+            });
+            ordenarProductos();
+            mostrarProductos(productosFiltrados);
+            actualizarEstadisticas(productosFiltrados);
         }
 
         // FUNCIÓN 4: Ordenar productos
@@ -278,8 +288,28 @@
             // 1. Obtener criterio de ordenamiento
             // 2. Usar sort() con switch/case
             // 3. Llamar a mostrarProductos()
-            
-            console.log("TODO: ordenarProductos()");
+            const criterio = document.getElementById("ordenar").value;
+
+            productosFiltrados.sort((a, b) => {
+                switch (criterio) {
+                    case "nombre_asc":
+                        return a.nombre.localeCompare(b.nombre);
+                    case "nombre_desc":
+                        return b.nombre.localeCompare(a.nombre);
+                    case "precio_asc":
+                        return a.precio - b.precio;
+                    case "precio_desc":
+                        return b.precio - a.precio;
+                    case "stock_asc": 
+                        return a.stock - b.stock;
+                    case "stock_desc": 
+                        return b.stock - a.stock;
+                    default:
+                        return 0;
+                }
+            });
+            mostrarProductos(productosFiltrados);
+            actualizarEstadisticas(productosFiltrados);
         }
 
         // FUNCIÓN 5: Limpiar filtros
@@ -288,17 +318,33 @@
             // 1. Resetear todos los inputs y selects
             // 2. Resetear productosFiltrados
             // 3. Llamar a mostrarProductos()
-            
-            console.log("TODO: limpiarFiltros()");
+            document.getElementById("buscar").value = "";
+            document.getElementById("categoria").value = "todas";
+            document.getElementById("stockMinimo").value = 0;
+            document.getElementById("ordenar").value = "nombre_asc";
+
+            productosFiltrados = [...productosOriginales];
+            mostrarProductos(productosFiltrados);
+            actualizarEstadisticas(productosFiltrados);
         }
 
         // EVENT LISTENERS
         // TODO: Agregar event listeners para los botones y el input de búsqueda
-
+        document.getElementById("aplicarFiltros").addEventListener("click", () => {
+            aplicarFiltros();
+            ordenarProductos();
+        });
+        document.getElementById("limpiarFiltros").addEventListener("click", limpiarFiltros);
+        //document.getElementById("buscar").addEventListener("input", aplicarFiltros); ACTUALIZA AUTOMATICAMENTE CUANDO SE HACE UN INPUT
+        //document.getElementById("categoria").addEventListener("change", aplicarFiltros); ACTUALIZA AUTOMATICAMENTE CUANDO SE SELECCIONA UNO DE LAS OPCIONES DEL SELECT
+        //document.getElementById("stockMinimo").addEventListener("input", aplicarFiltros); ACTUALIZA AUTOMATICAMENTE CUANDO SE HACE UN INPUT
+        //document.getElementById("ordenar").addEventListener("change", ordenarProductos); ACTUALIZA AUTOMATICAMENTE CUANDO SE SELECCIONA UNO DE LAS OPCIONES DEL SELECT
         // INICIALIZACIÓN
         // TODO: Llamar a mostrarProductos() al cargar la página
-        
-        console.log("Implementa las funciones para ver los productos");
+        window.addEventListener("load", () => {
+            mostrarProductos(productosOriginales);
+            actualizarEstadisticas(productosOriginales);
+        })
     </script>
 </body>
 </html>
