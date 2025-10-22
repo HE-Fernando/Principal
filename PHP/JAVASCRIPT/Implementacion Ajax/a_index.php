@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .stats {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .stats span {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        
+        .filtros {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .filtro-grupo {
+            margin: 10px 0;
+        }
+        
+        label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .btn-limpiar {
+            background-color: #f44336;
+        }
+        
+        .btn-limpiar:hover {
+            background-color: #da190b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+        
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .sin-resultados {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sistema de Gestión de Productos</h2>
+    
+    <div class="stats">
+        Total de productos: <span id="totalProductos"></span> | 
+        Productos filtrados: <span id="productosFiltrados"></span> | 
+        Valor total stock: $<span id="valorTotal"></span>
+    </div>
+    
+    <div class="filtros">
+        <h3>Filtros y Búsqueda</h3>
+        
+        <div class="filtro-grupo">
+            <label>Buscar:</label>
+            <input type="text" id="buscar" placeholder="Buscar por nombre...">
+        </div>
+        
+        <div class="filtro-grupo">
+            <label>Categoría:</label>
+            <select id="categoria">
+                <option value="todas">Todas las categorías</option>
+                <option value="Electrónica">Electrónica</option>
+                <option value="Ropa">Ropa</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Hogar">Hogar</option>
+            </select>
+        </div>
+        
+        <div class="filtro-grupo">
+            <label>Stock mínimo:</label>
+            <input type="number" id="stockMinimo" value="0" min="0">
+        </div>
+        
+        <div class="filtro-grupo">
+            <label>Ordenar por:</label>
+            <select id="ordenar">
+                <option value="nombre_asc">Nombre (A-Z)</option>
+                <option value="nombre_desc">Nombre (Z-A)</option>
+                <option value="precio_asc">Precio (Menor a Mayor)</option>
+                <option value="precio_desc">Precio (Mayor a Menor)</option>
+                <option value="stock_asc">Stock (Menor a Mayor)</option>
+                <option value="stock_desc">Stock (Mayor a Mayor)</option>
+            </select>
+        </div>
+        
+        <button id="aplicarFiltros">Aplicar Filtros</button>
+        <button id="limpiarFiltros" class="btn-limpiar">Limpiar Filtros</button>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpoTabla">
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function cargarProductos(){
+            let buscar = $("#buscar").val();
+            let categoria = $("#categoria").val();
+            let stockMinimo = $("#stockMinimo").val();
+            let ordenar = $("#ordenar").val();
+
+            $.ajax({
+                url: "productos_ajax.php",
+                type: "GET",
+                data: {buscar, categoria, stockMinimo, ordenar},
+                dataType: "json",
+                success: function(response) {
+                    let html = "";
+                    let totalProductos = 0, productosFiltrados = 0, valorTotal = 0;
+                    if(response.length === 0){
+                        html = `<tr><td colspan="6" style="text-align:center; font-style:italic;">No hay productos</td></tr>`;
+                    }else{
+                        response.forEach(p => {
+                            
+                        })
+                    }
+                }
+            })
+        }
+
+        let productosFiltrados = [...productosOriginales];
+
+        // FUNCIÓN 1: Mostrar productos en la tabla
+        function mostrarProductos(productos) {
+            const cuerpoTabla = document.getElementById("cuerpoTabla");
+            cuerpoTabla.innerHTML = ""; //LIMPIO LA TABLA
+            if(productos.length === 0){
+                const filaVacia = document.createElement("tr");
+                filaVacia.innerHTML = `<td colspan="6" style="text-align:center; font-style:italic;">No hay productos para mostrar</td>`;
+                cuerpoTabla.appendChild(filaVacia);
+                return;
+            }
+            productos.forEach(producto => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `
+                <td>${producto.id}</td>
+                <td>${producto.nombre}</td>
+                <td>${producto.categoria}</td>
+                <td>${producto.precio.toLocaleString()}</td>
+                <td>${producto.stock}</td>
+                <td>${(producto.precio * producto.stock).toLocaleString()}</td>
+                `;
+                cuerpoTabla.appendChild(fila);
+            });
+            actualizarEstadisticas(productos);
+            // TODO: Implementar
+            // 1. Obtener el tbody con id "cuerpoTabla"
+            // 2. Limpiar su contenido
+            // 3. Si no hay productos, mostrar mensaje
+            // 4. Recorrer productos con forEach
+            // 5. Crear filas y calcular valor total
+            // 6. Llamar a actualizarEstadisticas()
+        }
+        mostrarProductos(productosOriginales); //TODOS LOS PRODUCTOS
+        //mostrarProductos(productosVacio); //CON UN ARREGLO VACIO PARA PROBAR EL MENSAJE
+         
+        // FUNCIÓN 2: Actualizar estadísticas
+        function actualizarEstadisticas(productos) {
+            // TODO: Implementar
+            // 1. Actualizar totalProductos
+            // 2. Actualizar productosFiltrados
+            // 3. Calcular valor total con reduce()
+            // 4. Actualizar valorTotal
+            const totalProductos = document.getElementById("totalProductos");
+            const productosFiltrados = document.getElementById("productosFiltrados");
+            const valorTotal = document.getElementById("valorTotal");
+            if (productos.length === 0){
+                totalProductos.innerText = "0";
+                productosFiltrados.innerText = "0";
+                valorTotal.innerText = "0";
+                return;
+            }
+            let contadorProductos = 0;
+            let contadorFiltrados = 0;
+            let contadorValorTotal;
+            productos.forEach(producto => {
+                contadorProductos = contadorProductos + producto.stock;
+                contadorFiltrados = contadorFiltrados + 1;
+            });
+            contadorValorTotal = productos.reduce((acumulador, producto) =>{
+                return acumulador + (producto.precio * producto.stock);
+            }, 0);
+            console.log(contadorProductos);
+            console.log(contadorValorTotal);
+            console.log(contadorFiltrados);
+            totalProductos.innerText = contadorProductos.toLocaleString();
+            productosFiltrados.innerText = contadorFiltrados.toLocaleString();
+            valorTotal.innerText = contadorValorTotal.toLocaleString();
+        }
+
+        // FUNCIÓN 3: Aplicar filtros
+        function aplicarFiltros() {
+            // TODO: Implementar
+            // 1. Obtener valores de los filtros
+            // 2. Usar filter() sobre productosOriginales
+            // 3. Guardar en productosFiltrados
+            // 4. Llamar a ordenarProductos()
+            const textoBusqueda = document.getElementById("buscar").value.toLowerCase();
+            const categoria = document.getElementById("categoria").value;
+            const stockMinimo = parseInt(document.getElementById("stockMinimo").value) || 0;
+
+            productosFiltrados = productosOriginales.filter(p =>{
+                const coincideNombre = p.nombre.toLowerCase().includes(textoBusqueda);
+                const coincideCategoria = categoria === "todas" || p.categoria === categoria;
+                const coincideStock = p.stock >= stockMinimo;
+                return coincideNombre && coincideCategoria && coincideStock;
+            });
+            ordenarProductos();
+            mostrarProductos(productosFiltrados);
+            actualizarEstadisticas(productosFiltrados);
+        }
+
+        // FUNCIÓN 4: Ordenar productos
+        function ordenarProductos() {
+            // TODO: Implementar
+            // 1. Obtener criterio de ordenamiento
+            // 2. Usar sort() con switch/case
+            // 3. Llamar a mostrarProductos()
+            const criterio = document.getElementById("ordenar").value;
+
+            productosFiltrados.sort((a, b) => {
+                switch (criterio) {
+                    case "nombre_asc":
+                        return a.nombre.localeCompare(b.nombre);
+                    case "nombre_desc":
+                        return b.nombre.localeCompare(a.nombre);
+                    case "precio_asc":
+                        return a.precio - b.precio;
+                    case "precio_desc":
+                        return b.precio - a.precio;
+                    case "stock_asc": 
+                        return a.stock - b.stock;
+                    case "stock_desc": 
+                        return b.stock - a.stock;
+                    default:
+                        return 0;
+                }
+            });
+            mostrarProductos(productosFiltrados);
+            actualizarEstadisticas(productosFiltrados);
+        }
+
+        // FUNCIÓN 5: Limpiar filtros
+        function limpiarFiltros() {
+            // TODO: Implementar
+            // 1. Resetear todos los inputs y selects
+            // 2. Resetear productosFiltrados
+            // 3. Llamar a mostrarProductos()
+            document.getElementById("buscar").value = "";
+            document.getElementById("categoria").value = "todas";
+            document.getElementById("stockMinimo").value = 0;
+            document.getElementById("ordenar").value = "nombre_asc";
+
+            productosFiltrados = [...productosOriginales];
+            mostrarProductos(productosFiltrados);
+            actualizarEstadisticas(productosFiltrados);
+        }
+
+        // EVENT LISTENERS
+        // TODO: Agregar event listeners para los botones y el input de búsqueda
+        document.getElementById("aplicarFiltros").addEventListener("click", () => {
+            aplicarFiltros();
+            ordenarProductos();
+        });
+        document.getElementById("limpiarFiltros").addEventListener("click", limpiarFiltros);
+        //document.getElementById("buscar").addEventListener("input", aplicarFiltros); ACTUALIZA AUTOMATICAMENTE CUANDO SE HACE UN INPUT
+        //document.getElementById("categoria").addEventListener("change", aplicarFiltros); ACTUALIZA AUTOMATICAMENTE CUANDO SE SELECCIONA UNO DE LAS OPCIONES DEL SELECT
+        //document.getElementById("stockMinimo").addEventListener("input", aplicarFiltros); ACTUALIZA AUTOMATICAMENTE CUANDO SE HACE UN INPUT
+        //document.getElementById("ordenar").addEventListener("change", ordenarProductos); ACTUALIZA AUTOMATICAMENTE CUANDO SE SELECCIONA UNO DE LAS OPCIONES DEL SELECT
+        // INICIALIZACIÓN
+        // TODO: Llamar a mostrarProductos() al cargar la página
+        window.addEventListener("load", () => {
+            mostrarProductos(productosOriginales);
+            actualizarEstadisticas(productosOriginales);
+        })
+    </script>
+</body>
+</html>
