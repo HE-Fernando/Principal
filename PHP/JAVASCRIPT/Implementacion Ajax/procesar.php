@@ -26,7 +26,7 @@ switch($accion){
         break;
     }
     default: {
-        echo json_encode(["error => 'Acción no válida.'"]);
+        echo json_encode(["error" => 'Acción no válida.']);
         break;
     }
 }
@@ -40,7 +40,7 @@ function crearProducto($conn){
     $stock = mysqli_real_escape_string($conn, $_POST["stock"] ?? "");
 
     //Validar si no están vacios
-    if (empty("nombre") || empty($categoria) || $precio === "" || $stock === ""){
+    if (empty($nombre) || empty($categoria) || $precio === "" || $stock === ""){
         echo json_encode(["error" => "Todos los campos son obligatorios"]);
         return;
     }
@@ -51,7 +51,7 @@ function crearProducto($conn){
     //Ejecucion
     if (mysqli_query($conn, $query)){
         echo json_encode([
-            "success" => "Producto creado correctamente",
+            "exito" => true,
             "id" => mysqli_insert_id($conn) 
         ]);
     } else {
@@ -125,6 +125,9 @@ function listarProductos($conn){
         $productos[] = $row;
     }
 
-    echo json_encode($productos);
+    echo json_encode([
+        "exito" => true,
+        "productos" => $productos
+    ]);
 }
 ?>

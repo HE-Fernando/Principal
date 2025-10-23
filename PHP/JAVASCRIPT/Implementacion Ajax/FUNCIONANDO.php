@@ -105,33 +105,6 @@
             padding: 20px;
             color: #999;
         }
-
-        .contenedor-superior {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 20px;
-            align-items: stretch;
-        }
-        
-        #filtros, #agregarProducto {
-            flex: 1;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-            box-sizing: border-box;
-        }
-
-        #filtros, #agregarProducto {
-            min-height: 100%;
-        }
-
-        @media (max-width: 768px){
-            .contenedor-superior {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 <body>
@@ -144,68 +117,65 @@
         Valor total stock: $<span id="valorTotal"></span>
     </div>
     
-    <div class="contenedor-superior">
-        <div id="filtros">
-            <h3>Filtros y Búsqueda</h3>
+    <div class="filtros">
+        <h3>Filtros y Búsqueda</h3>
         
-            <div class="filtro-grupo">
-                <label>Buscar:</label>
-                <input type="text" id="buscar" placeholder="Buscar por nombre...">
-            </div>
-        
-            <div class="filtro-grupo">
-                <label>Categoría:</label>
-                <select id="categoria">
-                    <option value="todas">Todas las categorías</option>
-                    <option value="Electrónica">Electrónica</option>
-                    <option value="Ropa">Ropa</option>
-                    <option value="Alimentos">Alimentos</option>
-                    <option value="Hogar">Hogar</option>
-                </select>
-            </div>
-        
-            <div class="filtro-grupo">
-                <label>Stock mínimo:</label>
-                <input type="number" id="stockMinimo" value="0" min="0">
-            </div>
-        
-            <div class="filtro-grupo">
-                <label>Ordenar por:</label>
-                <select id="ordenar">
-                    <option value="nombre_asc">Nombre (A-Z)</option>
-                    <option value="nombre_desc">Nombre (Z-A)</option>
-                    <option value="precio_asc">Precio (Menor a Mayor)</option>
-                    <option value="precio_desc">Precio (Mayor a Menor)</option>
-                    <option value="stock_asc">Stock (Menor a Mayor)</option>
-                    <option value="stock_desc">Stock (Mayor a Menor)</option>
-                </select>
-            </div>
-        
-            <button id="aplicarFiltros">Aplicar Filtros</button>
-            <button id="limpiarFiltros" class="btn-limpiar">Limpiar Filtros</button>
+        <div class="filtro-grupo">
+            <label>Buscar:</label>
+            <input type="text" id="buscar" placeholder="Buscar por nombre...">
         </div>
-
-        <div id="agregarProducto">
-            <h3>Agregar Nuevo Producto</h3>
-            <label>Nombre:</label>
-            <input type="text" id="nuevoNombre" placeholder="Nombre del producto"><br><br>
-
+        
+        <div class="filtro-grupo">
             <label>Categoría:</label>
-            <select id="nuevaCategoria">
+            <select id="categoria">
+                <option value="todas">Todas las categorías</option>
                 <option value="Electrónica">Electrónica</option>
                 <option value="Ropa">Ropa</option>
                 <option value="Alimentos">Alimentos</option>
                 <option value="Hogar">Hogar</option>
-            </select><br><br>
-
-            <label>Precio:</label>
-            <input type="number" id="nuevoPrecio" placeholder="Precio" step="0.01"><br><br>
-
-            <label>Stock:</label>
-            <input type="number" id="nuevoStock" placeholder="Stock"><br><br>
-
-            <button id="btnAgregarProducto">Agregar Producto</button>
+            </select>
         </div>
+        
+        <div class="filtro-grupo">
+            <label>Stock mínimo:</label>
+            <input type="number" id="stockMinimo" value="0" min="0">
+        </div>
+        
+        <div class="filtro-grupo">
+            <label>Ordenar por:</label>
+            <select id="ordenar">
+                <option value="nombre_asc">Nombre (A-Z)</option>
+                <option value="nombre_desc">Nombre (Z-A)</option>
+                <option value="precio_asc">Precio (Menor a Mayor)</option>
+                <option value="precio_desc">Precio (Mayor a Menor)</option>
+                <option value="stock_asc">Stock (Menor a Mayor)</option>
+                <option value="stock_desc">Stock (Mayor a Menor)</option>
+            </select>
+        </div>
+        
+        <button id="aplicarFiltros">Aplicar Filtros</button>
+        <button id="limpiarFiltros" class="btn-limpiar">Limpiar Filtros</button>
+    </div>
+    <div class="filtros" style="margin-top:20px;">
+        <h3>Agregar Nuevo Producto</h3>
+        <label>Nombre:</label>
+        <input type="text" id="nuevoNombre" placeholder="Nombre del producto"><br><br>
+
+        <label>Categoría:</label>
+        <select id="nuevaCategoria">
+            <option value="Electrónica">Electrónica</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Hogar">Hogar</option>
+        </select><br><br>
+
+        <label>Precio:</label>
+        <input type="number" id="nuevoPrecio" placeholder="Precio" step="0.01"><br><br>
+
+        <label>Stock:</label>
+        <input type="number" id="nuevoStock" placeholder="Stock"><br><br>
+
+        <button id="btnAgregarProducto">Agregar Producto</button>
     </div>
 
     <table>
